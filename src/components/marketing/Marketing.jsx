@@ -1,5 +1,3 @@
-import React from "react";
-// import FeatureCard from "./FeatureCard";
 import { FaPlug, FaChartPie, FaCode, FaEnvelope, FaSms, FaWhatsapp, FaFacebook, FaGoogle, FaCogs, FaUsers, FaClipboardList, FaFileAlt } from "react-icons/fa";
 import MarketingCard from "./MarketingCard";
 
@@ -20,7 +18,7 @@ const features = [
 
 const Marketing = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 p-3 sm:p-4 md:p-6">
       {features.map((feature, idx) => (
         <MarketingCard key={idx} {...feature} />
       ))}

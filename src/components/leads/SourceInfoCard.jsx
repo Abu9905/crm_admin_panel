@@ -1,5 +1,3 @@
-import React from "react";
-
 const SourceInfoCard = () => {
   return (
     <div className="bg-blue-100 rounded-lg shadow p-4 w-[12vw] h-fit max-w-sm">

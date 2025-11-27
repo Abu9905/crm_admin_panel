@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const deals = [
@@ -56,31 +55,31 @@ const deals = [
 
 const DealsTable = () => {
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full border border-gray-200 shadow-md rounded-lg">
+    <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+      <table className="min-w-[800px] w-full border border-gray-200 dark:border-gray-700">
         {/* Table Head */}
         <thead>
-          <tr className="bg-gradient-to-r from-green-300 to-green-200 text-left text-gray-700">
-            <th className="px-4 py-2 text-sm font-semibold">Lead Id</th>
-            <th className="px-4 py-2 text-sm font-semibold">Name</th>
-            <th className="px-4 py-2 text-sm font-semibold">Mobile number</th>
-            <th className="px-4 py-2 text-sm font-semibold">Email Id</th>
-            <th className="px-4 py-2 text-sm font-semibold">Source</th>
-            <th className="px-4 py-2 text-sm font-semibold">Status</th>
-            <th className="px-4 py-2 text-sm font-semibold">Location</th>
-            <th className="px-4 py-2 text-sm font-semibold">Lead owner</th>
+          <tr className="bg-gradient-to-r from-green-300 to-green-200 dark:from-green-700 dark:to-green-600 text-left text-gray-700 dark:text-gray-200">
+            <th className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-semibold whitespace-nowrap">Lead Id</th>
+            <th className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-semibold whitespace-nowrap">Name</th>
+            <th className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-semibold whitespace-nowrap">Mobile number</th>
+            <th className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-semibold whitespace-nowrap">Email Id</th>
+            <th className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-semibold whitespace-nowrap">Source</th>
+            <th className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-semibold whitespace-nowrap">Status</th>
+            <th className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-semibold whitespace-nowrap">Location</th>
+            <th className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-semibold whitespace-nowrap">Lead owner</th>
           </tr>
         </thead>
 
         {/* Table Body */}
-        <tbody className="bg-white">
+        <tbody className="bg-white dark:bg-gray-900">
           {deals.map((deal) => (
             <tr
               key={deal.id}
-              className="border-b border-gray-200 hover:bg-gray-50 transition"
+              className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
             >
               {/* Lead Id */}
-              <td className="px-4 py-2 text-sm text-blue-600 font-medium">
+              <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-blue-600 dark:text-blue-400 font-medium">
                 <Link
                   to={`/layout/lead-management/deals/${deal.id}`}
                   state={{ deal }}
@@ -90,7 +89,7 @@ const DealsTable = () => {
                 </Link>
               </td>
               {/* Name */}
-              <td className="px-4 py-2 text-sm text-blue-600 font-medium">
+              <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-blue-600 dark:text-blue-400 font-medium">
                 <Link
                   to={`/layout/lead-management/deals/${deal.id}`}
                   state={{ deal }}
@@ -99,16 +98,16 @@ const DealsTable = () => {
                   {deal.name}
                 </Link>
               </td>
-              <td className="px-4 py-2 text-sm text-gray-700">{deal.mobile}</td>
-              <td className="px-4 py-2 text-sm text-gray-700">{deal.email}</td>
-              <td className="px-4 py-2 text-sm text-gray-700">{deal.source}</td>
-              <td className="px-4 py-2 text-sm font-medium text-green-600">
+              <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300">{deal.mobile}</td>
+              <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300 break-all">{deal.email}</td>
+              <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300">{deal.source}</td>
+              <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-medium text-green-600 dark:text-green-400">
                 {deal.status}
               </td>
-              <td className="px-4 py-2 text-sm text-gray-700">
+              <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
                 {deal.location}
               </td>
-              <td className="px-4 py-2 text-sm text-gray-700">{deal.owner}</td>
+              <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-gray-700 dark:text-gray-300">{deal.owner}</td>
             </tr>
           ))}
         </tbody>

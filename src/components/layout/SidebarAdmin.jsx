@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
+import { FaTimes } from "react-icons/fa";
 
-const SidebarAdmin = () => {
+const SidebarAdmin = ({ onClose }) => {
   const leadManagementStructure = {
     Data: ["New Data", "Junk", "Opportunity (Hot, warm, Cold)", "Custom"],
     Leads: [
@@ -160,8 +161,21 @@ const SidebarAdmin = () => {
   return (
     <div
       ref={sidebarRef}
-      className="max-w-[10vw] border-r border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-lg dark:shadow-gray-900 flex flex-col px-2 py-6 space-y-6 relative overflow-visible"
+      className="w-[70px] sm:w-[80px] lg:max-w-[10vw] h-full border-r border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-lg dark:shadow-gray-900 flex flex-col px-2 py-4 sm:py-6 space-y-4 sm:space-y-6 relative z-50"
+      style={{ overflow: 'visible' }}
     >
+      {/* Mobile close button */}
+      {onClose && (
+        <div className="flex justify-end mb-2 lg:hidden">
+          <button
+            onClick={onClose}
+            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            aria-label="Close sidebar"
+          >
+            <FaTimes className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+          </button>
+        </div>
+      )}
       {navItems.map((item, idx) => (
         <div key={idx} className="flex flex-col items-center relative group">
           {/* Main Nav Item */}
@@ -175,7 +189,7 @@ const SidebarAdmin = () => {
             <img
               src={item.icon}
               alt={item.title}
-              className="h-[35px] object-cover dark:brightness-0 dark:invert"
+              className="h-[28px] sm:h-[32px] lg:h-[35px] w-auto object-cover dark:brightness-0 dark:invert"
             />
 
             {/* Hover Text Tooltip */}
@@ -189,7 +203,7 @@ const SidebarAdmin = () => {
             <div
               ref={(el) => (menuRefs.current[idx] = el)}
               onClick={(e) => e.stopPropagation()}
-              className="absolute left-full top-0 ml-2 bg-white dark:bg-gray-800 shadow-xl dark:shadow-gray-900 rounded-lg border dark:border-gray-700 p-3 flex flex-col z-[9999] min-w-[220px] max-h-[80vh] overflow-y-auto"
+              className="absolute left-full top-0 ml-2 bg-white dark:bg-gray-800 shadow-xl dark:shadow-gray-900 rounded-lg border dark:border-gray-700 p-3 flex flex-col z-[10000] min-w-[200px] sm:min-w-[220px] max-w-[90vw] max-h-[80vh] overflow-y-auto"
             >
               {item.isNested ? (
                 // Nested structure for Lead Management

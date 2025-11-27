@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { USER_ROLES } from '../../constants';
@@ -72,8 +72,8 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-2xl">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-6 sm:space-y-8 bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-xl sm:rounded-2xl shadow-2xl">
         {/* Header */}
         <div className="text-center">
           <div className="flex justify-center mb-4">
@@ -83,10 +83,10 @@ const Login = () => {
               className="h-16 w-16 dark:brightness-0 dark:invert"
             />
           </div>
-          <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">
             Welcome Back
           </h2>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
             Sign in to your account to continue
           </p>
         </div>

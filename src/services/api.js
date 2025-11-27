@@ -40,36 +40,6 @@ api.interceptors.response.use(
 
 // Dashboard API endpoints
 export const dashboardAPI = {
-  // Get report overview data
-  getReportOverview: async (timePeriod = 30) => {
-    const response = await api.get(`/dashboard/reports?days=${timePeriod}`);
-    return response.data;
-  },
-
-  // Get lead overview data
-  getLeadOverview: async (timePeriod = 30) => {
-    const response = await api.get(`/dashboard/leads?days=${timePeriod}`);
-    return response.data;
-  },
-
-  // Get sales forecasting data
-  getSalesForecasting: async (timePeriod = 30) => {
-    const response = await api.get(`/dashboard/sales-forecast?days=${timePeriod}`);
-    return response.data;
-  },
-
-  // Get market overview data
-  getMarketOverview: async (timePeriod = 30) => {
-    const response = await api.get(`/dashboard/market?days=${timePeriod}`);
-    return response.data;
-  },
-
-  // Get leads funnel data
-  getLeadsFunnel: async (timePeriod = 30) => {
-    const response = await api.get(`/dashboard/funnel?days=${timePeriod}`);
-    return response.data;
-  },
-
   // Get all dashboard data at once
   getAllDashboardData: async (timePeriod = 30) => {
     const response = await api.get(`/dashboard/all?days=${timePeriod}`);

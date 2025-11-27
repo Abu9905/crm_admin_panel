@@ -29,6 +29,7 @@ const ProtectedRoute = ({ children, allowedRoles = [] }) => {
     }
   }
 
+
   return children;
 };
 

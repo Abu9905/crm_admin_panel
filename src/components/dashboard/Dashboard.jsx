@@ -1,4 +1,3 @@
-import React from "react";
 import {
   ResponsiveContainer,
   LineChart,
@@ -85,41 +84,28 @@ const funnelSummary = [
 
 const Dashboard = () => {
   return (
-    <div className="flex flex-col gap-6 w-full">
-      <header className="flex items-center justify-between bg-white dark:bg-gray-800 rounded-2xl shadow-sm dark:shadow-gray-900 border border-gray-100 dark:border-gray-700 px-6 py-4">
-        <div>
-          <p className="text-sm uppercase tracking-[0.3em] text-gray-400">Salesbudge</p>
-          <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">Dashboard</h1>
-        </div>
-        <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
-          <div className="flex items-center gap-2 bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-300 px-4 py-1.5 rounded-full">
-            <span className="w-2 h-2 rounded-full bg-green-500" /> Available
-          </div>
-          <span>Last Date 12-09-2025</span>
-        </div>
-      </header>
-
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        <section className="xl:col-span-2 bg-white dark:bg-gray-800 rounded-2xl shadow-sm dark:shadow-gray-900 border border-gray-100 dark:border-gray-700 p-6 space-y-5">
-          <div className="flex items-center justify-between">
+    <div className="flex flex-col gap-4 sm:gap-6 w-full">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
+        <section className="xl:col-span-2 bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-sm dark:shadow-gray-900 border border-gray-100 dark:border-gray-700 p-4 sm:p-6 space-y-4 sm:space-y-5">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
             <div>
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Report Overview</h2>
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">Report Overview</h2>
               <p className="text-xs text-gray-500">Line Graph · 30 Days</p>
             </div>
-            <div className="flex items-center gap-2 text-xs text-gray-500">
-              <button className="px-3 py-1 rounded-full border">Line Graph</button>
-              <button className="px-3 py-1 rounded-full border">30 Days</button>
+            <div className="flex items-center gap-2 text-xs text-gray-500 flex-wrap">
+              <button className="px-2 sm:px-3 py-1 rounded-full border text-xs">Line Graph</button>
+              <button className="px-2 sm:px-3 py-1 rounded-full border text-xs">30 Days</button>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4">
             {statCards.map((card) => (
               <div key={card.label} className="text-center">
-                <p className="text-3xl font-bold text-gray-900 dark:text-white">{card.value}</p>
-                <p className="text-xs uppercase tracking-wide text-gray-500">{card.label}</p>
+                <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">{card.value}</p>
+                <p className="text-[10px] sm:text-xs uppercase tracking-wide text-gray-500">{card.label}</p>
               </div>
             ))}
           </div>
-          <div className="h-60">
+          <div className="h-48 sm:h-56 lg:h-60">
             <ResponsiveContainer>
               <LineChart data={reportOverviewData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -131,26 +117,26 @@ const Dashboard = () => {
           </div>
         </section>
 
-        <section className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm dark:shadow-gray-900 border border-gray-100 dark:border-gray-700 p-6 space-y-5">
-          <div className="flex items-center justify-between">
+        <section className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-sm dark:shadow-gray-900 border border-gray-100 dark:border-gray-700 p-4 sm:p-6 space-y-4 sm:space-y-5">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
             <div>
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Lead Overview</h2>
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">Lead Overview</h2>
               <p className="text-xs text-gray-500">Doughnut · 30 Days</p>
             </div>
-            <div className="flex items-center gap-2 text-xs text-gray-500">
-              <button className="px-3 py-1 rounded-full border">Doughnut</button>
-              <button className="px-3 py-1 rounded-full border">30 Days</button>
+            <div className="flex items-center gap-2 text-xs text-gray-500 flex-wrap">
+              <button className="px-2 sm:px-3 py-1 rounded-full border text-xs">Doughnut</button>
+              <button className="px-2 sm:px-3 py-1 rounded-full border text-xs">30 Days</button>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4">
             {leadSummary.map((item) => (
               <div key={item.label} className="text-center">
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">{item.value}</p>
-                <p className="text-xs uppercase tracking-wide text-gray-500">{item.label}</p>
+                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white">{item.value}</p>
+                <p className="text-[10px] sm:text-xs uppercase tracking-wide text-gray-500">{item.label}</p>
               </div>
             ))}
           </div>
-          <div className="h-60">
+          <div className="h-48 sm:h-56 lg:h-60">
             <ResponsiveContainer>
               <PieChart>
                 <Pie data={leadSources} innerRadius={55} outerRadius={80} dataKey="value" paddingAngle={2}>
@@ -162,16 +148,16 @@ const Dashboard = () => {
               </PieChart>
             </ResponsiveContainer>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
             {leadSources.map((source, index) => (
-              <div key={source.name} className="flex items-center gap-3">
+              <div key={source.name} className="flex items-center gap-2 sm:gap-3">
                 <span
-                  className="w-3 h-3 rounded-full"
+                  className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full flex-shrink-0"
                   style={{ backgroundColor: donutColors[index % donutColors.length] }}
                 />
-                <div>
-                  <p className="text-sm font-semibold text-gray-900 dark:text-white">{source.name}</p>
-                  <p className="text-xs text-gray-500">{source.value}%</p>
+                <div className="min-w-0">
+                  <p className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white truncate">{source.name}</p>
+                  <p className="text-[10px] sm:text-xs text-gray-500">{source.value}%</p>
                 </div>
               </div>
             ))}
@@ -179,29 +165,29 @@ const Dashboard = () => {
         </section>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        <section className="xl:col-span-2 bg-white dark:bg-gray-800 rounded-2xl shadow-sm dark:shadow-gray-900 border border-gray-100 dark:border-gray-700 p-6 space-y-5">
-          <div className="flex items-center justify-between">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
+        <section className="xl:col-span-2 bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-sm dark:shadow-gray-900 border border-gray-100 dark:border-gray-700 p-4 sm:p-6 space-y-4 sm:space-y-5">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
             <div>
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Sales Forecasting</h2>
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">Sales Forecasting</h2>
               <p className="text-xs text-gray-500">Line Graph · 30 Days</p>
             </div>
-            <div className="flex items-center gap-6 text-center">
+            <div className="flex items-center gap-3 sm:gap-6 text-center flex-wrap">
               <div>
-                <p className="text-2xl font-bold text-red-500">$128K</p>
-                <p className="text-xs uppercase tracking-wide text-gray-500">Forecasted</p>
+                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-red-500">$128K</p>
+                <p className="text-[10px] sm:text-xs uppercase tracking-wide text-gray-500">Forecasted</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-orange-500">$86K</p>
-                <p className="text-xs uppercase tracking-wide text-gray-500">Committed</p>
+                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-orange-500">$86K</p>
+                <p className="text-[10px] sm:text-xs uppercase tracking-wide text-gray-500">Committed</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-pink-500">72%</p>
-                <p className="text-xs uppercase tracking-wide text-gray-500">Accuracy</p>
+                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-pink-500">72%</p>
+                <p className="text-[10px] sm:text-xs uppercase tracking-wide text-gray-500">Accuracy</p>
               </div>
             </div>
           </div>
-          <div className="h-60">
+          <div className="h-48 sm:h-56 lg:h-60">
             <ResponsiveContainer>
               <LineChart data={salesForecastData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -214,28 +200,28 @@ const Dashboard = () => {
           </div>
         </section>
 
-        <section className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm dark:shadow-gray-900 border border-gray-100 dark:border-gray-700 p-6 space-y-5">
-          <div className="flex items-center justify-between">
+        <section className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-sm dark:shadow-gray-900 border border-gray-100 dark:border-gray-700 p-4 sm:p-6 space-y-4 sm:space-y-5">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
             <div>
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Market Overview</h2>
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">Market Overview</h2>
               <p className="text-xs text-gray-500">Bar Graph · 30 Days</p>
             </div>
-            <div className="grid grid-cols-3 gap-4 text-center">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center w-full sm:w-auto">
               <div>
-                <p className="text-2xl font-bold text-emerald-500">5.2K</p>
-                <p className="text-xs text-gray-500">Impression</p>
+                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-emerald-500">5.2K</p>
+                <p className="text-[10px] sm:text-xs text-gray-500">Impression</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-sky-500">3.8%</p>
-                <p className="text-xs text-gray-500">CTR</p>
+                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-sky-500">3.8%</p>
+                <p className="text-[10px] sm:text-xs text-gray-500">CTR</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-purple-500">$2.14</p>
-                <p className="text-xs text-gray-500">CPC</p>
+                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-purple-500">$2.14</p>
+                <p className="text-[10px] sm:text-xs text-gray-500">CPC</p>
               </div>
             </div>
           </div>
-          <div className="h-60">
+          <div className="h-48 sm:h-56 lg:h-60">
             <ResponsiveContainer>
               <BarChart data={marketPerformance}>
                 <CartesianGrid vertical={false} stroke="#e5e7eb" />
@@ -252,23 +238,23 @@ const Dashboard = () => {
         </section>
       </div>
 
-      <section className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm dark:shadow-gray-900 border border-gray-100 dark:border-gray-700 p-6 space-y-5">
-        <div className="flex items-center justify-between">
+      <section className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-sm dark:shadow-gray-900 border border-gray-100 dark:border-gray-700 p-4 sm:p-6 space-y-4 sm:space-y-5">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Leads Funnel</h2>
+            <h2 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">Leads Funnel</h2>
             <p className="text-xs text-gray-500">Bar Graph · 30 Days</p>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-2 sm:gap-4 flex-wrap">
             {funnelSummary.map((item) => (
               <div key={item.label} className="text-center">
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">{item.value}</p>
-                <p className="text-xs text-gray-500">{item.label}</p>
+                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 dark:text-white">{item.value}</p>
+                <p className="text-[10px] sm:text-xs text-gray-500">{item.label}</p>
               </div>
             ))}
           </div>
         </div>
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-          <div className="h-64">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
+          <div className="h-48 sm:h-56 lg:h-64">
             <ResponsiveContainer>
               <LineChart data={reportOverviewData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -278,7 +264,7 @@ const Dashboard = () => {
               </LineChart>
             </ResponsiveContainer>
           </div>
-          <div className="h-64">
+          <div className="h-48 sm:h-56 lg:h-64">
             <ResponsiveContainer>
               <BarChart data={leadsFunnelData}>
                 <CartesianGrid vertical={false} stroke="#e5e7eb" />

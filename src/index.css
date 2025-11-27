@@ -2,19 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-
-html, body {
+html,
+body {
   height: 100%;
-  overflow: hidden;
   margin: 0;
   padding: 0;
 }
 
 #root {
   height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+  
+  #root {
+    overflow-x: hidden;
+  }
 }

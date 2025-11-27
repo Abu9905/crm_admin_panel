@@ -1,4 +1,3 @@
-import React from "react";
 import {
   FaUsers,
   FaUserCog,
@@ -33,9 +32,9 @@ const features = [
 const Settings = () => {
   return (
     <>
-    <p className="font-semibold ml-7 text-gray-800 dark:text-gray-200">Settings Tools</p>
+    <p className="font-semibold ml-3 sm:ml-7 text-sm sm:text-base text-gray-800 dark:text-gray-200 mb-3 sm:mb-4">Settings Tools</p>
  
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-6 pb-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-3 sm:px-6 pb-4">
         
       {features.map((feature, idx) => (
         <SettingsCard key={idx} {...feature} />
