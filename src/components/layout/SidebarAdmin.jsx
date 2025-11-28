@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { FaTimes } from "react-icons/fa";
 
 const SidebarAdmin = ({ onClose }) => {
+  const location = useLocation();
+  const isUserPanel = location.pathname.startsWith("/layout/user-panel");
   const leadManagementStructure = {
     Data: ["New Data", "Junk", "Opportunity (Hot, warm, Cold)", "Custom"],
     Leads: [
@@ -58,7 +60,7 @@ const SidebarAdmin = ({ onClose }) => {
     "CRM_Video": ["Video 1", "Video 2", "Video 3", "Video 4", "Video 5"],
   };
 
-  const navItems = [
+  const allNavItems = [
     {
       title: "Dashboard",
       icon: "/Buttons.png",
@@ -86,7 +88,6 @@ const SidebarAdmin = ({ onClose }) => {
       link: "/layout/task",
       isNested: true,
     },
-
     {
       title: "Reports",
       icon: "/Buttons5.png",
@@ -103,7 +104,7 @@ const SidebarAdmin = ({ onClose }) => {
     },
     {
       title: "Conversion",
-      icon: "/Buttons7.png",
+      icon: "/Buttons4.png",
       sub: conversionManagementStructure,
       link: "/layout/conversion",
       isNested: true,
@@ -122,6 +123,25 @@ const SidebarAdmin = ({ onClose }) => {
       link: "/layout",
     },
   ];
+
+  // Filter nav items based on user panel - show only 7 icons for user panel
+  const navItems = isUserPanel
+    ? allNavItems
+        .filter(
+          (item) =>
+            item.title !== "Marketing" && item.title !== "Settings"
+        )
+        .map((item) => {
+          // Update Dashboard link for user panel
+          if (item.title === "Dashboard") {
+            return {
+              ...item,
+              link: "/layout/user-panel",
+            };
+          }
+          return item;
+        })
+    : allNavItems;
 
   const [openIndex, setOpenIndex] = useState(null);
   const [openCategory, setOpenCategory] = useState(null);

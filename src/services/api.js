@@ -45,6 +45,30 @@ export const dashboardAPI = {
     const response = await api.get(`/dashboard/all?days=${timePeriod}`);
     return response.data;
   },
+  
+  // Get lead metrics (for UserPanel)
+  getLeadMetrics: async (timePeriod = 30) => {
+    const response = await api.get(`/dashboard/lead-metrics?days=${timePeriod}`);
+    return response.data;
+  },
+  
+  // Get approvals data
+  getApprovals: async (timePeriod = 30) => {
+    const response = await api.get(`/dashboard/approvals?days=${timePeriod}`);
+    return response.data;
+  },
+  
+  // Get today's performance metrics
+  getPerformanceMetrics: async () => {
+    const response = await api.get(`/dashboard/performance`);
+    return response.data;
+  },
+  
+  // Get leads funnel
+  getLeadsFunnel: async (timePeriod = 30) => {
+    const response = await api.get(`/dashboard/funnel?days=${timePeriod}`);
+    return response.data;
+  },
 };
 
 // Mock data generator for development (when API is not available)
@@ -123,6 +147,35 @@ export const generateMockDashboardData = (timePeriod = 30) => {
         { name: 'Converted', value: Math.floor(Math.random() * 20) + 80 },
       ],
       trendData: generateDaysData().map((d) => ({ day: d.day, value: d.value })),
+    },
+    leadMetrics: [
+      { id: 'newLead', value: Math.floor(Math.random() * 100) + 10, change: (Math.random() * 20 - 10).toFixed(1) },
+      { id: 'missedCalls', value: Math.floor(Math.random() * 100) + 10, change: (Math.random() * 20 - 10).toFixed(1) },
+      { id: 'unreadEmail', value: Math.floor(Math.random() * 100) + 10, change: (Math.random() * 20 - 10).toFixed(1) },
+      { id: 'unreadWA', value: Math.floor(Math.random() * 100) + 10, change: (Math.random() * 20 - 10).toFixed(1) },
+      { id: 'reEngaged', value: Math.floor(Math.random() * 100) + 10, change: (Math.random() * 20 - 10).toFixed(1) },
+      { id: 'prospect', value: Math.floor(Math.random() * 100) + 10, change: (Math.random() * 20 - 10).toFixed(1) },
+      { id: 'untouched', value: Math.floor(Math.random() * 100) + 10, change: (Math.random() * 20 - 10).toFixed(1) },
+      { id: 'attempt', value: Math.floor(Math.random() * 100) + 10, change: (Math.random() * 20 - 10).toFixed(1) },
+      { id: 'onHold', value: Math.floor(Math.random() * 100) + 10, change: (Math.random() * 20 - 10).toFixed(1) },
+      { id: 'enrolled', value: Math.floor(Math.random() * 100) + 10, change: (Math.random() * 20 - 10).toFixed(1) },
+    ],
+    approvals: {
+      sent: Math.floor(Math.random() * 30) + 50,
+      received: Math.floor(Math.random() * 30) + 40,
+      all: Math.floor(Math.random() * 20) + 15,
+    },
+    performance: {
+      totalCalls: Math.floor(Math.random() * 90) + 10,
+      totalTalk: Math.floor(Math.random() * 90) + 10,
+      aveCallDuration: `${Math.floor(Math.random() * 6) + 2}M`,
+      leadWorked: Math.floor(Math.random() * 90) + 10,
+      followUpCreated: Math.floor(Math.random() * 90) + 10,
+      firstCall: Math.floor(Math.random() * 90) + 10,
+      demoDone: Math.floor(Math.random() * 90) + 10,
+      prospects1: Math.floor(Math.random() * 90) + 10,
+      prospects2: Math.floor(Math.random() * 90) + 10,
+      prospects3: Math.floor(Math.random() * 90) + 10,
     },
   };
 };

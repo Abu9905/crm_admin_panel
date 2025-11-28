@@ -66,19 +66,60 @@ export const AuthProvider = ({ children }) => {
       },
     };
 
-    const user = demoUsers[email.toLowerCase()];
+    // Check demo users first
+    let user = null;
+    const demoUser = demoUsers[email.toLowerCase()];
+    
+    if (demoUser && demoUser.password === password) {
+      user = {
+        id: demoUser.id,
+        name: demoUser.name,
+        email: demoUser.email,
+        role: demoUser.role,
+      };
+    } else {
+      // If not found in demo users, check managed users from localStorage
+      try {
+        const managedUsersStr = localStorage.getItem('managedUsers');
+        if (managedUsersStr) {
+          const managedUsers = JSON.parse(managedUsersStr);
+          const managedUser = managedUsers.find(
+            u => u.email.toLowerCase() === email.toLowerCase()
+          );
+          if (managedUser && managedUser.password === password) {
+            // Create user object without password
+            user = {
+              id: managedUser.id,
+              name: managedUser.name,
+              email: managedUser.email,
+              role: managedUser.role,
+            };
+          }
+        }
+      } catch (error) {
+        console.error('Error checking managed users:', error);
+      }
+    }
 
-    if (user && user.password === password) {
+    if (user) {
       // Generate a mock token
       const token = `mock_token_${Date.now()}_${user.id}`;
       
+      // Create user object without password for storage
+      const userToStore = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      };
+      
       // Store user and token
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(userToStore));
       localStorage.setItem('authToken', token);
       
-      setUser(user);
+      setUser(userToStore);
       setLoading(false);
-      return { success: true, user };
+      return { success: true, user: userToStore };
     } else {
       setLoading(false);
       return { 

@@ -162,7 +162,7 @@ const generateMockData = () => {
   };
 };
 
-const UserPanel = () => {
+const UserDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [chartView, setChartView] = useState("bar");
@@ -191,156 +191,65 @@ const UserPanel = () => {
         }
         setError(null);
 
-        // Fetch all data in parallel for better performance
-        const [
-          leadMetricsResponse,
-          approvalsResponse,
-          performanceResponse,
-          funnelResponse,
-        ] = await Promise.allSettled([
-          dashboardAPI.getLeadMetrics(timeRange).catch(() => null),
-          dashboardAPI.getApprovals(timeRange).catch(() => null),
-          dashboardAPI.getPerformanceMetrics().catch(() => null),
-          dashboardAPI.getLeadsFunnel(timeRange).catch(() => null),
-        ]);
-
-        // Extract data from responses or use mock data
-        const leadMetricsData =
-          leadMetricsResponse.status === "fulfilled" &&
-          leadMetricsResponse.value
-            ? leadMetricsResponse.value
-            : null;
-
-        const approvalsData =
-          approvalsResponse.status === "fulfilled" && approvalsResponse.value
-            ? approvalsResponse.value
-            : null;
-
-        const performanceData =
-          performanceResponse.status === "fulfilled" &&
-          performanceResponse.value
-            ? performanceResponse.value
-            : null;
-
-        const funnelData =
-          funnelResponse.status === "fulfilled" && funnelResponse.value
-            ? funnelResponse.value
-            : null;
-
-        // If all APIs failed, try to get mock data
-        const mockData =
-          !leadMetricsData && !approvalsData && !performanceData && !funnelData
-            ? generateMockDashboardData(timeRange)
-            : null;
+        // Try to fetch from API, fallback to mock data
+        let dashboardData;
+        try {
+          const response = await dashboardAPI.getAllDashboardData(timeRange);
+          dashboardData = response;
+        } catch (apiError) {
+          console.warn("API not available, using mock data:", apiError);
+          dashboardData = generateMockDashboardData(timeRange);
+        }
 
         // Transform API data to match our component structure
         const transformedData = {
-          leadMetrics: leadMetricsConfig.map((config) => {
-            const apiMetric = leadMetricsData?.metrics?.find(
-              (m) => m.id === config.id
-            );
-            const mockMetric = mockData?.leadMetrics?.find(
-              (m) => m.id === config.id
-            );
-
-            return {
-              ...config,
-              value:
-                apiMetric?.value ||
-                mockMetric?.value ||
-                Math.floor(Math.random() * 100) + 10,
-              change:
-                apiMetric?.change ||
-                mockMetric?.change ||
-                (Math.random() * 20 - 10).toFixed(1),
-            };
-          }),
-          leadFunnel: funnelData?.chartData?.map((item, idx) => ({
-            stage:
-              item.name ||
-              ["Leads", "Qualified", "Proposal", "Negotiation", "Converted"][
-                idx
-              ],
-            total: item.value || 0,
-          })) ||
-            mockData?.leadsFunnel?.chartData?.map((item, idx) => ({
+          leadMetrics: leadMetricsConfig.map((config, index) => ({
+            ...config,
+            value:
+              dashboardData.leadMetrics?.[index]?.value ||
+              Math.floor(Math.random() * 100) + 10,
+            change:
+              dashboardData.leadMetrics?.[index]?.change ||
+              (Math.random() * 20 - 10).toFixed(1),
+          })),
+          leadFunnel: dashboardData.leadsFunnel?.chartData?.map(
+            (item, idx) => ({
               stage:
                 item.name ||
                 ["Leads", "Qualified", "Proposal", "Negotiation", "Converted"][
                   idx
                 ],
-              total: item.value || 0,
-            })) || [
-              { stage: "Leads", total: 480 },
-              { stage: "Qualified", total: 350 },
-              { stage: "Proposal", total: 220 },
-              { stage: "Negotiation", total: 120 },
-              { stage: "Converted", total: 50 },
-            ],
-          approvals: approvalsData
-            ? [
-                {
-                  label: "Approval Sent",
-                  value: approvalsData.sent || 0,
-                },
-                {
-                  label: "Approval Received",
-                  value: approvalsData.received || 0,
-                },
-                {
-                  label: "All Approvals",
-                  value: approvalsData.all || 0,
-                },
-              ]
-            : mockData?.approvals
-            ? [
-                {
-                  label: "Approval Sent",
-                  value: mockData.approvals.sent || 0,
-                },
-                {
-                  label: "Approval Received",
-                  value: mockData.approvals.received || 0,
-                },
-                {
-                  label: "All Approvals",
-                  value: mockData.approvals.all || 0,
-                },
-              ]
-            : [
-                {
-                  label: "Approval Sent",
-                  value: Math.floor(Math.random() * 30) + 50,
-                },
-                {
-                  label: "Approval Received",
-                  value: Math.floor(Math.random() * 30) + 40,
-                },
-                {
-                  label: "All Approvals",
-                  value: Math.floor(Math.random() * 20) + 15,
-                },
-              ],
-          performance: performanceMetricsConfig.map((config) => {
-            const apiValue = performanceData?.metrics?.[config.id];
-            const mockValue = mockData?.performance?.[config.id];
-
-            return {
-              ...config,
-              value:
-                apiValue !== undefined
-                  ? apiValue
-                  : mockValue !== undefined
-                  ? mockValue
-                  : config.id === "aveCallDuration"
-                  ? `${Math.floor(Math.random() * 6) + 2}M`
-                  : Math.floor(Math.random() * 90) + 10,
-            };
-          }),
-          totalLeads:
-            funnelData?.metrics?.leads ||
-            mockData?.leadsFunnel?.metrics?.leads ||
-            "5.2K",
+              total: item.value || Math.floor(Math.random() * 500) + 50,
+            })
+          ) || [
+            { stage: "Leads", total: 480 },
+            { stage: "Qualified", total: 350 },
+            { stage: "Proposal", total: 220 },
+            { stage: "Negotiation", total: 120 },
+            { stage: "Converted", total: 50 },
+          ],
+          approvals: [
+            {
+              label: "Approval Sent",
+              value: Math.floor(Math.random() * 30) + 50,
+            },
+            {
+              label: "Approval Received",
+              value: Math.floor(Math.random() * 30) + 40,
+            },
+            {
+              label: "All Approvals",
+              value: Math.floor(Math.random() * 20) + 15,
+            },
+          ],
+          performance: performanceMetricsConfig.map((config) => ({
+            ...config,
+            value:
+              config.id === "aveCallDuration"
+                ? `${Math.floor(Math.random() * 6) + 2}M`
+                : Math.floor(Math.random() * 90) + 10,
+          })),
+          totalLeads: dashboardData.leadsFunnel?.metrics?.leads || "5.2K",
           lastUpdated: new Date(),
         };
 
@@ -420,7 +329,7 @@ const UserPanel = () => {
       {/* Header */}
       <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-sm dark:shadow-gray-900 border border-gray-100 dark:border-gray-700 px-4 sm:px-6 py-4 sm:py-5 transition-all duration-300">
         <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900 dark:text-white">
-          Dashboard
+          User Dashboard
         </h1>
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full sm:w-auto">
           <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
@@ -650,4 +559,5 @@ const UserPanel = () => {
   );
 };
 
-export default UserPanel;
+export default UserDashboard;
+

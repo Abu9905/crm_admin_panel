@@ -2,7 +2,8 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from '../layouts/Layout';
 import Login from '../components/auth/Login';
 import ProtectedRoute from '../components/auth/ProtectedRoute';
-import Dashboard from '../components/dashboard/Dashboard';
+import AdminDashboard from '../components/dashboard/AdminDashboard';
+import UserDashboard from '../components/dashboard/UserDashboard';
 import LeadTable from '../components/leads/LeadTable';
 import IndividualLeadDetails from '../components/leads/IndividualLeadDetails';
 import DealsTable from '../components/deals/DealsTable';
@@ -10,7 +11,6 @@ import IndividualDealDetails from '../components/deals/IndividualDealDetails';
 import Marketing from '../components/marketing/Marketing';
 import Settings from '../components/settings/Settings';
 import AdminPanel from '../components/admin/AdminPanel';
-import UserPanel from '../components/users/UserPanel';
 import { USER_ROLES } from '../constants';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -52,11 +52,18 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       >
-        {/* Dashboard - Accessible to all authenticated users */}
-        <Route path="dashboard" element={<Dashboard />}>
-          <Route path="system-default" element={<div>System Default</div>} />
-          <Route path="custom" element={<div>Custom Dashboard</div>} />
-        </Route>
+        {/* Admin Dashboard - Only for Admin */}
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoute allowedRoles={[USER_ROLES.ADMIN]}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* User Dashboard - For regular users */}
+        <Route path="user-panel" element={<UserDashboard />} />
 
         {/* Lead Management - Accessible to all */}
         <Route path="lead-management">
@@ -109,8 +116,6 @@ const AppRoutes = () => {
           }
         />
 
-        {/* User Panel - Accessible to all, but optimized for regular users */}
-        <Route path="user-panel" element={<UserPanel />} />
       </Route>
 
       {/* Catch all - redirect to login */}
